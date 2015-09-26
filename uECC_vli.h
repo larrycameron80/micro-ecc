@@ -131,9 +131,9 @@ void uECC_vli_mod_sqrt(uECC_word_t *a, uECC_Curve curve);
 #endif
 
 /* Converts an integer in uECC native format to big-endian bytes. */
-void uECC_vli_nativeToBytes(uint8_t *bytes, int num_bytes, const uECC_word_t *native, uECC_Curve curve);
+void uECC_vli_nativeToBytes(uint8_t *bytes, int num_bytes, const uECC_word_t *native);
 /* Converts big-endian bytes to an integer in uECC native format. */
-void uECC_vli_bytesToNative(uECC_word_t *native, const uint8_t *bytes, int num_bytes, uECC_Curve curve);
+void uECC_vli_bytesToNative(uECC_word_t *native, const uint8_t *bytes, int num_bytes);
 
 unsigned uECC_curve_num_words(uECC_Curve curve);
 unsigned uECC_curve_num_bits(uECC_Curve curve);
@@ -155,8 +155,11 @@ void uECC_point_mult(uECC_word_t *result,
                      const uECC_word_t *scalar,
                      uECC_Curve curve);
 
-/* Generates a random integer r in the range 0 < r < curve->n */
-int uECC_generate_random_int(uECC_word_t *random, uECC_Curve curve);
+/* Generates a random integer in the range 0 < random < top.
+   Both random and top have num_words words. */
+int uECC_generate_random_int(uECC_word_t *random,
+                             const uECC_word_t *top,
+                             wordcount_t num_words);
 
 #endif /* uECC_ENABLE_VLI_API */
 
